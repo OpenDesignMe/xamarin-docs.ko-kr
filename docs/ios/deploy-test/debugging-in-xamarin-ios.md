@@ -1,19 +1,20 @@
 ---
-title: 디버깅
-description: Mac용 Visual Studio 또는 Visual Studio에서 기본 제공 디버거를 사용하여 Xamarin.iOS 응용 프로그램을 디버그할 수 있습니다.
+title: Xamarin.iOS 앱 디버깅
+description: 이 문서에서는 Mac 또는 Visual Studio 2017용 Visual Studio에서 디버거를 사용하여 중단점 설정, 무선 디버깅 등을 포함한 Xamarin.iOS 응용 프로그램을 디버깅하는 방법을 설명합니다.
 ms.prod: xamarin
 ms.assetid: 05460010-99E1-DC38-F855-2D691EF54484
 ms.technology: xamarin-ios
 author: bradumbaugh
 ms.author: brumbaug
 ms.date: 03/19/2017
-ms.openlocfilehash: e2e32170de258f46eb5a926db35bce33c0ca64de
-ms.sourcegitcommit: dc882e9631b4ed52596b944a6fbbdde309346943
+ms.openlocfilehash: 4b21a69e49c8c7fd79de8edac9858c4714657f1c
+ms.sourcegitcommit: b56b3f906d2c05a3f1be219ef41be8b79e519b8e
 ms.translationtype: HT
 ms.contentlocale: ko-KR
-ms.lasthandoff: 04/26/2018
+ms.lasthandoff: 07/25/2018
+ms.locfileid: "39242318"
 ---
-# <a name="debugging"></a>디버깅
+# <a name="debugging-xamarinios-apps"></a>Xamarin.iOS 앱 디버깅
 
 _Mac용 Visual Studio 또는 Visual Studio에서 기본 제공 디버거를 사용하여 Xamarin.iOS 응용 프로그램을 디버그할 수 있습니다._
 
@@ -29,7 +30,7 @@ Xamarin.iOS 디버거는 [Mono 소프트 디버거](http://www.mono-project.com/
 
 ## <a name="setting-breakpoints"></a>중단점 설정
 
-응용 프로그램 디버깅을 시작할 준비가 되면 첫 번째 단계는 [응용 프로그램에 중단점을 설정](https://developer.xamarin.com/recipes/cross-platform/ide/debugging/set_a_breakpoint/)하는 것입니다. 이 작업은 중단하려는 코드 번호 옆에 있는 편집기의 여백 영역에서 클릭하여 수행됩니다.
+응용 프로그램 디버깅을 시작할 준비가 되면 첫 번째 단계는 [응용 프로그램에 중단점을 설정](https://github.com/xamarin/recipes/tree/master/Recipes/cross-platform/ide/debugging/set_a_breakpoint)하는 것입니다. 이 작업은 중단하려는 코드 번호 옆에 있는 편집기의 여백 영역에서 클릭하여 수행됩니다.
 
 # <a name="visual-studio-for-mactabvsmac"></a>[Visual Studio for Mac](#tab/vsmac)
 
@@ -120,7 +121,7 @@ Xamarin.iOS 디버거는 [Mono 소프트 디버거](http://www.mono-project.com/
 
 # <a name="visual-studiotabvswin"></a>[Visual Studio](#tab/vswin)
 
-Visual Studio 2015에서 조건부 중단점을 설정하려면 먼저 [일반 중단점을 설정](https://developer.xamarin.com/recipes/cross-platform/ide/debugging/set_a_breakpoint/)합니다. 중단점을 마우스 오른쪽 단추로 클릭하여 팝업 메뉴를 표시합니다.
+Visual Studio 2015에서 조건부 중단점을 설정하려면 먼저 [일반 중단점을 설정](https://github.com/xamarin/recipes/tree/master/Recipes/cross-platform/ide/debugging/set_a_breakpoint)합니다. 중단점을 마우스 오른쪽 단추로 클릭하여 팝업 메뉴를 표시합니다.
 
  [![](debugging-in-xamarin-ios-images/image4vs.png "중단점 팝업 메뉴")](debugging-in-xamarin-ios-images/image4vs.png#lightbox)
 
@@ -240,6 +241,6 @@ Visual Studio에서 클래스 라이브러리를 디버그하려면 _디버그 >
 
 - [Xamarin을 사용한 디버깅](/visualstudio/mac/debugging/)
 - [데이터 시각화](/visualstudio/mac/data-visualizations/)
-- [중단점 설정](https://developer.xamarin.com/recipes/cross-platform/ide/debugging/set_a_breakpoint/)
-- [단계별 코드 실행](https://developer.xamarin.com/recipes/cross-platform/ide/debugging/step_through_code/)
-- [로그 창에 정보 출력](https://developer.xamarin.com/recipes/cross-platform/ide/debugging/output_information_to_log_window/)
+- [중단점 설정](https://github.com/xamarin/recipes/tree/master/Recipes/cross-platform/ide/debugging/set_a_breakpoint)
+- [단계별 코드 실행](https://github.com/xamarin/recipes/tree/master/Recipes/cross-platform/ide/debugging/step_through_code)
+- [로그 창에 정보 출력](https://github.com/xamarin/recipes/tree/master/Recipes/cross-platform/ide/debugging/output_information_to_log_window)

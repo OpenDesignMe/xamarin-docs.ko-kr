@@ -1,21 +1,20 @@
 ---
 title: 계측을 사용하여 Xamarin.iOS 응용 프로그램 프로파일링
-description: 장치 또는 시뮬레이터에서 Xamarin.iOS 응용 프로그램에 대해 계측을 사용하는 방법
+description: 이 문서에서는 Apple의 계측 앱을 사용하여 장치 또는 시뮬레이터에 설치된 Xamarin.iOS 응용 프로그램을 프로파일링하는 방법을 설명합니다.
 ms.prod: xamarin
 ms.assetid: 70A8CAC8-20C2-655B-37C3-ACF9EA7874D8
 ms.technology: xamarin-ios
 author: bradumbaugh
 ms.author: brumbaug
 ms.date: 03/19/2017
-ms.openlocfilehash: a5c44531a8f05529b169390f25b2946133411098
-ms.sourcegitcommit: 945df041e2180cb20af08b83cc703ecd1aedc6b0
+ms.openlocfilehash: 9b6168eba91a87af88891b9e07e3dd395301cc48
+ms.sourcegitcommit: 021027b78cb2f8061b03a7c6ae59367ded32d587
 ms.translationtype: HT
 ms.contentlocale: ko-KR
-ms.lasthandoff: 04/04/2018
+ms.lasthandoff: 07/20/2018
+ms.locfileid: "39182210"
 ---
 # <a name="profiling-xamarinios-applications-with-instruments"></a>계측을 사용하여 Xamarin.iOS 응용 프로그램 프로파일링
-
-_장치 또는 시뮬레이터에서 Xamarin.iOS 응용 프로그램에 대해 계측을 사용하는 방법_
 
 Xcode **계측**은 장치 또는 시뮬레이터에서 Xamarin.iOS 앱을 프로파일링하는 데 사용할 수 있는 도구입니다. Mono는 JIT(Just-in-Time) 모델을 사용하여 코드를 컴파일하고 계측은 이러한 종류의 데이터를 잘 해석하지 않으므로, 계측을 사용하는 시뮬레이터 기반 응용 프로그램의 출력 작업이 어려울 수 있습니다.
 이 문제로 인해 이 가이드에서는 개발자 앱을 사용하여 이 문서의 계측 출력을 해석하는 방법에 집중합니다.
@@ -28,11 +27,11 @@ Xcode 계측은 Mac에서만 실행됩니다.
 
 장치를 선택하고 계측 앱을 실행합니다.
 
-1.  Mac용 Visual Studio에서 Xamarin.iOS 프로젝트를 엽니다.
-2.  **디버그 | iPhone** 구성을 선택합니다.
-3.  컴퓨터에 iOS 장치를 연결합니다.
-4.  **실행** 메뉴에서 **장치에 업로드**를 선택합니다. 이제 응용 프로그램이 빌드되어 장치에 업로드됩니다.
-5.  **도구** 메뉴에서 **계측 시작**을 선택합니다.
+1. Mac용 Visual Studio에서 Xamarin.iOS 프로젝트를 엽니다.
+2. **디버그 | iPhone** 구성을 선택합니다.
+3. 컴퓨터에 iOS 장치를 연결합니다.
+4. **실행** 메뉴에서 **장치에 업로드**를 선택합니다. 이제 응용 프로그램이 빌드되어 장치에 업로드됩니다.
+5. **도구** 메뉴에서 **계측 시작**을 선택합니다.
 
 
 이제 계측이 열리고 다음 대화 상자가 표시됩니다.
@@ -66,4 +65,4 @@ iOS 장치는 창 위쪽의 메뉴에서 선택해야 하며, 프로비전할 �
 ## <a name="related-links"></a>관련 링크
 
 - [계측 연습](~/ios/deploy-test/walkthrough-apples-instrument.md)
-- [Xamarin.iOS 가비지 수집](https://krumelur.me/2015/04/27/xamarin-ios-the-garbage-collector-and-me/)
+- [Xamarin.iOS 가비지 수집(블로그 게시물)](http://c-sharx.net/2015-04-27-xamarin-ios-the-garbage-collector-and-me/)

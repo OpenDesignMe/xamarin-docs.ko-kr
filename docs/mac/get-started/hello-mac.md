@@ -1,6 +1,6 @@
 ---
-title: Hello, Mac
-description: 이 지침에서는 첫 번째 Xamarin.Mac 앱을 만드는 단계를 안내하고, 그 과정에서 Mac용 Visual Studio, Xcode 및 Interface Builder를 포함한 개발 도구 체인을 소개합니다. 또한 코드에 UI 컨트롤을 표시하는 출선 및 작업을 소개하고, 마지막으로 Xamarin.Mac 응용 프로그램을 빌드, 실행 및 테스트하는 방법을 보여줍니다.
+title: Hello, Mac – 연습
+description: 이 문서에서는 Xamarin.Mac 앱을 만드는 방법을 설명하고 Mac, Xcode 및 Interface Builder용 Visual Studio를 소개합니다. 출선 및 작업을 통해 코드에 UI 컨트롤 표시를 설명하고, Xamarin.Mac 응용 프로그램을 빌드, 실행 및 테스트하는 방법을 보여줍니다.
 ms.topic: quickstart
 ms.prod: xamarin
 ms.assetid: 37D0E9E6-979B-7069-B3BE-C5F0AF99BA72
@@ -8,13 +8,14 @@ ms.technology: xamarin-mac
 author: bradumbaugh
 ms.author: brumbaug
 ms.date: 03/23/2017
-ms.openlocfilehash: e5d87d42765480c97da392cf07b6599108895321
-ms.sourcegitcommit: 945df041e2180cb20af08b83cc703ecd1aedc6b0
+ms.openlocfilehash: f06bf6736b427a4d77ac34957d75cd321f3dae3a
+ms.sourcegitcommit: ffb0f3dbf77b5f244b195618316bbd8964541e42
 ms.translationtype: HT
 ms.contentlocale: ko-KR
-ms.lasthandoff: 04/04/2018
+ms.lasthandoff: 07/26/2018
+ms.locfileid: "39275939"
 ---
-# <a name="hello-mac"></a>Hello, Mac
+# <a name="hello-mac--walkthrough"></a>Hello, Mac – 연습
 
 Xamarin.Mac을 사용하면 *Objective-C* 및 *Xcode*에서 개발할 때 사용되는 동일한 OS X 라이브러리 및 인터페이스 컨트롤을 사용하여 C# 및 .NET에서 완전한 네이티브 Mac 앱을 개발할 수 있습니다. Xamarin.Mac이 Xcode와 직접 통합되므로 개발자는 Xcode의 _Interface Builder_를 사용하여 앱의 사용자 인터페이스를 만들 수 있습니다(또는 필요에 따라 C# 코드에서 바로 작성).
 
@@ -248,7 +249,7 @@ Xamarin.Mac 앱 프로젝트를 만들고 구성 요소에 대한 기본적인 �
 
 [![](hello-mac-images/infoplist01.png "Mac용 Visual Studio plist 편집기")](hello-mac-images/infoplist01.png#lightbox)
 
-또한 **주 인터페이스** 드롭다운 아래에 Xamarin.Mac 앱의 사용자 인터페이스를 표시하는 데 사용되는 _스토리보드_를 정의합니다. 위의 예에서 드롭다운의 `Main`은 **솔루션 탐색기**의 프로젝트 소스 트리에 있는 `Main.storyboard`와 관련되어 있습니다. 또한 아이콘(여기서는 AppIcons)을 포함하는 *자산 카탈로그*를 지정하여 앱의 아이콘을 정의합니다.
+또한 **주 인터페이스** 드롭다운 아래에 Xamarin.Mac 앱의 사용자 인터페이스를 표시하는 데 사용되는 _스토리보드_를 정의합니다. 위의 예에서 드롭다운의 `Main`은 **솔루션 탐색기**의 프로젝트 소스 트리에 있는 `Main.storyboard`와 관련되어 있습니다. 또한 아이콘(여기서는 **AppIcon**)을 포함하는 ‘자산 카탈로그’를 지정하여 앱의 아이콘을 정의합니다.
 
 ### <a name="entitlementsplist"></a>Entitlements.plist
 

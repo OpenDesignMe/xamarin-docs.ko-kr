@@ -1,40 +1,40 @@
 ---
 title: 'Xamarin.Essentials: 지 오 코딩'
-description: Xamarin.Essentials에 지 오 코딩 클래스는 Api를 제공 두 geocode를 위치 좌표로 placemark geocode 좌표는 placemark을 반전 합니다.
+description: Xamarin.Essentials에서 지 오 코딩 클래스 Api를 제공 모두 geocode 위치 좌표를 placemark 및 geocode 좌표는 placemark를 반전 합니다.
 ms.assetid: 3ADC440C-B000-4708-A2CC-296F5160AF90
 author: jamesmontemagno
 ms.author: jamont
 ms.date: 05/04/2018
-ms.openlocfilehash: 0b6cbf9ee5621466285656a5efee68ccc2c85211
-ms.sourcegitcommit: ea1dc12a3c2d7322f234997daacbfdb6ad542507
+ms.openlocfilehash: a4d6e4d9b32e665893d82693a3c858630b63d372
+ms.sourcegitcommit: 51c274f37369d8965b68ff587e1c2d9865f85da7
 ms.translationtype: MT
 ms.contentlocale: ko-KR
-ms.lasthandoff: 06/05/2018
-ms.locfileid: "34783030"
+ms.lasthandoff: 07/30/2018
+ms.locfileid: "39353677"
 ---
 # <a name="xamarinessentials-geocoding"></a>Xamarin.Essentials: 지 오 코딩
 
-![시험판 NuGet](~/media/shared/pre-release.png)
+![시험판 버전 NuGet](~/media/shared/pre-release.png)
 
-**지 오 코딩** 클래스는 Api를 제공 geocode를 위치 좌표로 placemark geocode coordincates는 placemark을 반전 합니다.
+합니다 **지 오 코딩** 클래스 Api를 제공 geocode 위치 좌표를 placemark geocode 좌표는 placemark 되돌릴 및 합니다.
 
 ## <a name="getting-started"></a>시작
 
-액세스는 **지 오 코딩** 는 다음과 같은 플랫폼 특정 설치 기능이 필요 합니다.
+액세스 하는 **지 오 코딩** 플랫폼 특정 설정 기능은 필요 합니다.
 
 # <a name="androidtabandroid"></a>[Android](#tab/android)
 
-추가 설치 하지 않아도 됩니다.
+추가 설정이 필요 없습니다.
 
 # <a name="iostabios"></a>[iOS](#tab/ios)
 
-추가 설치 하지 않아도 됩니다.
+추가 설정이 필요 없습니다.
 
 # <a name="uwptabuwp"></a>[UWP](#tab/uwp)
 
-Bing maps API 키를 지 오 코딩 funcationality 사용 하려면 필요 합니다. 무료 등록 [Bing Maps](https://www.bingmapsportal.com/) 계정. 아래 **내 계정 > 내 키** 새 키를 만들고 응용 프로그램 종류에 따라 정보를 입력 합니다.
+Bing 맵 API 키를 지 오 코딩 기능을 사용 하려면 필요 합니다. 무료 등록 [Bing 지도](https://www.bingmapsportal.com/) 계정. 아래 **내 계정 > 내 키** 새 키를 만들고 응용 프로그램 유형에 따라 정보를 입력 (야 **공용 Windows 앱 (UWP 8.x, 및 이전 버전)** UWP 앱 용).
 
-호출 하기 전에 응용 프로그램의 수명에 초기에 **지 오 코딩** 메서드 API 키를 설정 합니다.
+호출 하기 전에 응용 프로그램의 수명에서 조기에 **지 오 코딩** API 키를 설정 하는 메서드:
 
 ```csharp
 Geocoding.MapKey = "YOUR-KEY-HERE";
@@ -44,13 +44,13 @@ Geocoding.MapKey = "YOUR-KEY-HERE";
 
 ## <a name="using-geocoding"></a>지 오 코딩을 사용 하 여
 
-클래스에 Xamarin.Essentials에 대 한 참조를 추가 합니다.
+클래스에서 Xamarin.Essentials에 대 한 참조를 추가 합니다.
 
 ```csharp
 using Xamarin.Essentials;
 ```
 
-가져오기 [위치](xref:Xamarin.Essentials.Location) 주소의 좌표:
+가져오는 [위치](xref:Xamarin.Essentials.Location) 좌표 주소:
 
 ```csharp
 try
@@ -61,7 +61,7 @@ try
     var location = locations?.FirstOrDefault();
     if (location != null)
     {
-        Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}");
+        Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
     }
 }
 catch (FeatureNotSupportedException fnsEx)
@@ -70,11 +70,13 @@ catch (FeatureNotSupportedException fnsEx)
 }
 catch (Exception ex)
 {
-    // Handle exception that may have occured in geocoding
+    // Handle exception that may have occurred in geocoding
 }
 ```
 
-가져오기 [placemarks](xref:Xamarin.Essentials.Placemark) 기존의 좌표 집합에 대 한:
+고도 항상 사용할 수 없습니다. 를 사용할 수 없는 경우는 `Altitude` 속성 수 `null` 또는 0 값일 수 있습니다. 고도 사용 가능한 경우 바다 수준 위의 위에 미터는 값은입니다.
+
+가져오는 [placemarks](xref:Xamarin.Essentials.Placemark) 좌표의 기존 집합에 대 한 합니다.
 
 ```csharp
 try
@@ -111,6 +113,10 @@ catch (Exception ex)
     // Handle exception that may have occurred in geocoding
 }
 ```
+
+## <a name="distance-between-two-locations"></a>두 위치 사이의 거리
+
+합니다 [ `Location` ](xref:Xamarin.Essentials.Location) 하 고 [ `LocationExtensions` ](xref:Xamarin.Essentials.LocationExtensions) 클래스 두 위치 사이의 거리를 계산 하는 메서드를 정의 합니다. 문서를 참조 하세요 [ **Xamarin.Essentials: 지리적 위치** ](geolocation.md#calculate-distance) 예입니다.
 
 ## <a name="api"></a>API
 

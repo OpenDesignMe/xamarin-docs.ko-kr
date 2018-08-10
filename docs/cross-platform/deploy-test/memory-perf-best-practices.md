@@ -1,23 +1,21 @@
 ---
 title: 플랫폼 간 성능
-description: Xamarin 플랫폼으로 빌드된 응용 프로그램의 성능을 높이기 위한 많은 기술이 있습니다. 이러한 기술은 전체적으로 CPU에서 수행하는 작업의 양과 응용 프로그램에서 소비하는 메모리의 양을 크게 줄일 수 있습니다. 이 문서에서는 이러한 기술에 대해 설명합니다.
+description: 이 문서에서는 모바일 응용 프로그램의 성능을 개선하는 데 사용할 수 있는 다양한 기술을 설명합니다. 프로파일러, IDisposable 리소스, 약한 참조, SGen 가비지 수집기, 크기 감소 기법 등을 설명합니다.
 ms.prod: xamarin
 ms.assetid: 9ce61f18-22ac-4b93-91be-5b499677d661
 author: asb3993
 ms.author: amburns
 ms.date: 03/24/2017
-ms.openlocfilehash: f011a92b4789da7328827f184449fd957abdf3ba
-ms.sourcegitcommit: 0a72c7dea020b965378b6314f558bf5360dbd066
+ms.openlocfilehash: bd08e1f83f7b1752a2830bda1390ffae4f86b360
+ms.sourcegitcommit: b56b3f906d2c05a3f1be219ef41be8b79e519b8e
 ms.translationtype: HT
 ms.contentlocale: ko-KR
-ms.lasthandoff: 05/09/2018
+ms.lasthandoff: 07/25/2018
+ms.locfileid: "39242409"
 ---
 # <a name="cross-platform-performance"></a>플랫폼 간 성능
 
-_Xamarin 플랫폼으로 빌드된 응용 프로그램의 성능을 높이기 위한 많은 기술이 있습니다. 이러한 기술은 전체적으로 CPU에서 수행하는 작업의 양과 응용 프로그램에서 소비하는 메모리의 양을 크게 줄일 수 있습니다. 이 문서에서는 이러한 기술에 대해 설명합니다._
-
-낮은 응용 프로그램 성능은 여러 가지 방법으로 나타납니다. 이 경우에 응용 프로그램이 응답하지 않는 것처럼 보이고, 스크롤 속도가 느려지고, 배터리 수명이 줄어들 수 있습니다. 그러나 성능을 최적화하려면 효율적인 코드를 구현하는 것 이상이 필요합니다. 응용 프로그램 성능에 대한 사용자 환경도 고려해야 합니다. 예를 들어 사용자가 다른 활동을 수행하지 못하도록 차단하지 않고 작업을 실행하면 사용자 환경을 향상시키는 데 도움이 될 수 있습니다.
-
+낮은 응용 프로그램 성능은 여러가지 방법으로 나타납니다. 이 경우에 응용 프로그램이 응답하지 않는 것처럼 보이고, 스크롤 속도가 느려지고, 배터리 수명이 줄어들 수 있습니다. 그러나 성능을 최적화하려면 효율적인 코드를 구현하는 것 이상이 필요합니다. 응용 프로그램 성능에 대한 사용자 환경도 고려해야 합니다. 예를 들어 사용자가 다른 활동을 수행하지 못하도록 차단하지 않고 작업을 실행하면 사용자 환경을 향상시키는 데 도움이 될 수 있습니다.
 
 <a name="profiler" />
 
@@ -89,7 +87,7 @@ public void ReadText (string filename)
 
 `StreamReader` 클래스는 `IDisposable`을 구현하고, `finally` 블록은 `StreamReader.Dispose` 메서드를 호출하여 리소스를 릴리스합니다.
 
-자세한 내용은 [IDisposable 인터페이스](https://developer.xamarin.com/api/type/System.IDisposable/)를 참조하세요.
+자세한 내용은 [IDisposable 인터페이스](xref:System.IDisposable)를 참조하세요.
 
 <a name="events" />
 
@@ -342,7 +340,7 @@ Android 앱은 각 ABI의 별도 APK로 분할될 수도 있습니다("아키텍
 
 ## <a name="optimize-image-resources"></a>이미지 리소스 최적화
 
-이미지는 응용 프로그램에서 사용하는 가장 비싼 리소스 중 일부이며, 고해상도로 캡처되는 경우가 많습니다. 여기에서 활발하게 세부적인 전체 이미지를 만드는 동안 해당 이미지를 표시하는 응용 프로그램에는 일반적으로 이미지를 디코딩할 더 많은 CPU 사용량 및 디코딩된 이미지를 저장할 더 많은 메모리가 필요합니다. 표시하기 위해 더 작은 크기로 축소하는 경우 메모리에서 고해상도 이미지를 디코딩할 필요가 없습니다. 대신, 예측된 디스플레이 크기에 가까운 저장된 이미지의 여러 해상도 버전을 만들어서 CPU 사용량 및 메모리 사용 공간을 줄입니다. 예를 들어 목록 보기에 표시되는 이미지는 전체 화면에 표시되는 이미지보다 해상도가 더 낮을 가능성이 높습니다. 또한 메모리 영향을 최소화하여 효율적으로 표시하도록 축소된 버전의 고해상도 이미지를 로드할 수 있습니다. 자세한 내용은 [효율적으로 큰 비트맵 로드](https://developer.xamarin.com/recipes/android/resources/general/load_large_bitmaps_efficiently/)를 참조하세요.
+이미지는 응용 프로그램에서 사용하는 가장 비싼 리소스 중 일부이며, 고해상도로 캡처되는 경우가 많습니다. 여기에서 활발하게 세부적인 전체 이미지를 만드는 동안 해당 이미지를 표시하는 응용 프로그램에는 일반적으로 이미지를 디코딩할 더 많은 CPU 사용량 및 디코딩된 이미지를 저장할 더 많은 메모리가 필요합니다. 표시하기 위해 더 작은 크기로 축소하는 경우 메모리에서 고해상도 이미지를 디코딩할 필요가 없습니다. 대신, 예측된 디스플레이 크기에 가까운 저장된 이미지의 여러 해상도 버전을 만들어서 CPU 사용량 및 메모리 사용 공간을 줄입니다. 예를 들어 목록 보기에 표시되는 이미지는 전체 화면에 표시되는 이미지보다 해상도가 더 낮을 가능성이 높습니다. 또한 메모리 영향을 최소화하여 효율적으로 표시하도록 축소된 버전의 고해상도 이미지를 로드할 수 있습니다. 자세한 내용은 [효율적으로 큰 비트맵 로드](https://github.com/xamarin/recipes/tree/master/Recipes/android/resources/general/load_large_bitmaps_efficiently)를 참조하세요.
 
 이미지 해상도와 관계 없이 이미지 리소스를 표시하면 앱의 메모리 사용 공간이 크게 증가할 수 있습니다. 따라서 필요한 경우에만 만들어야 하며, 응용 프로그램에 더 이상 필요하지 않을 경우 즉시 해제되어야 합니다.
 
@@ -381,5 +379,5 @@ Android 앱은 각 ABI의 별도 APK로 분할될 수도 있습니다("아키텍
 - [Xamarin Profiler 소개](~/tools/profiler/index.md)
 - [Xamarin.Forms 성능](~/xamarin-forms/deploy-test/performance.md)
 - [비동기 지원 개요](~/cross-platform/platform/async.md)
-- [IDisposable](https://developer.xamarin.com/api/type/System.IDisposable/)
+- [IDisposable](xref:System.IDisposable)
 - [Xamarin 앱에서 일반적인 문제 방지(비디오)](https://university.xamarin.com/guestlectures/avoiding-common-pitfalls-in-xamarin-apps)

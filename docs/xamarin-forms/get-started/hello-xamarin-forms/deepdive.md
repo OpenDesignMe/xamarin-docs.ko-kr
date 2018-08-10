@@ -1,18 +1,19 @@
 ---
 title: Xamarin.Forms 심층 분석
+description: 이 문서에서는 Xamarin.Forms를 사용하여 응용 프로그램 개발의 기본적인 사항을 검사합니다. Xamarin.Forms 응용 프로그램 분석, 아키텍처 및 응용 프로그램 기본 사항, 사용자 인터페이스에 대해 다루었습니다.
 ms.topic: quickstart
 ms.prod: xamarin
 ms.assetid: d97aa580-1eb9-48b3-b15b-0d7421ea7ae
 ms.technology: xamarin-forms
 author: davidbritch
 ms.author: dabritch
-ms.date: 04/10/2018
-ms.openlocfilehash: b51389a7ab6506908cb21f6657820575efdc0615
-ms.sourcegitcommit: d80d93957040a14b4638a91b0eac797cfaade840
+ms.date: 06/13/2018
+ms.openlocfilehash: 7eff7f4413b533caadcf2aa8b5eed8c4ab65449d
+ms.sourcegitcommit: b56b3f906d2c05a3f1be219ef41be8b79e519b8e
 ms.translationtype: HT
 ms.contentlocale: ko-KR
-ms.lasthandoff: 06/07/2018
-ms.locfileid: "34846766"
+ms.lasthandoff: 07/25/2018
+ms.locfileid: "39242227"
 ---
 # <a name="xamarinforms-deep-dive"></a>Xamarin.Forms 심층 분석
 
@@ -61,15 +62,11 @@ Mac용 Visual Studio는 코드를 *솔루션* 및 *프로젝트*로 구성하는
 
 ## <a name="anatomy-of-a-xamarinforms-application"></a>Xamarin.Forms 응용 프로그램 분석
 
-다음 스크린샷은 Mac용 Visual Studio의 Phoneword PCL 프로젝트 콘텐츠를 보여줍니다.
+다음 스크린샷은 Mac용 Visual Studio의 Phoneword .NET Standard 라이브러리 프로젝트 콘텐츠를 보여줍니다.
 
-![](deepdive-images/xs/pcl-project.png "Phoneword PCL 프로젝트 콘텐츠")
+![](deepdive-images/xs/library-project.png "Phoneword .NET Standard 라이브러리 프로젝트 콘텐츠")
 
-프로젝트는 다음과 같은 세 개 폴더로 구성됩니다.
-
-- **References** - 응용 프로그램을 빌드하고 실행하는 데 필요한 어셈블리가 포함됩니다. .NET Portable Subset 폴더를 확장하면 [System](http://msdn.microsoft.com/library/system%28v=vs.110%29.aspx), System.Core, [System.Xml](http://msdn.microsoft.com/library/system.xml%28v=vs.110%29.aspx) 같은 .NET 어셈블리에 대한 참조가 표시됩니다. **From Packages** 폴더를 확장하면 Xamarin.Forms 어셈블리에 대한 참조가 표시됩니다.
-- **Packages** – Packages 디렉터리에는 응용 프로그램에서 타사 라이브러리를 사용하는 프로세스를 단순화하는 [NuGet](https://www.nuget.org) 패키지가 저장됩니다. 폴더를 마우스 오른쪽 단추로 클릭하고 팝업 메뉴에서 업데이트 옵션을 선택하면 이러한 패키지를 최신 릴리스로 업데이트할 수 있습니다.
-- **Properties** - .NET 어셈블리 메타데이터 파일인 **AssemblyInfo.cs**를 보관합니다. 이 파일을 응용 프로그램에 대한 일부 기본 정보로 채우는 것이 좋습니다. 이 파일에 대한 자세한 내용은 MSDN에서 [AssemblyInfo 클래스](http://msdn.microsoft.com/library/microsoft.visualbasic.applicationservices.assemblyinfo(v=vs.110).aspx)를 참조하세요.
+프로젝트에는 **NuGet** 및 **SDK** 노드를 포함하는 **종속성** 노드가 있습니다. **NuGet** 노드는 프로젝트에 추가된 Xamarin.Forms NuGet 패키지를 포함하고, **SDK** 노드는 .NET Standard를 정의하는 전체 NuGet 패키지 집합을 참조하는 `NETStandard.Library` 메타패키지를 포함합니다.
 
 -----
 
@@ -80,10 +77,9 @@ Mac용 Visual Studio는 코드를 *솔루션* 및 *프로젝트*로 구성하는
 - **IDialer.cs** – 구현 클래스를 통해 `Dial` 메서드를 제공해야 한다고 지정하는 `IDialer` 인터페이스입니다.
 - **MainPage.xaml** - `MainPage` 클래스에 대한 XAML 태그로, 응용 프로그램이 시작될 때 표시되는 페이지의 UI를 정의합니다.
 - **MainPage.xaml.cs** – `MainPage` 클래스의 코드 숨김으로, 사용자가 페이지와 상호 작용할 때 실행되는 비즈니스 논리를 포함하고 있습니다.
-- **packages.config** – (Mac용 Visual Studio만 해당) 필수 패키지 및 각 패키지의 버전을 추적하기 위해 프로젝트에서 사용하는 NuGet 패키지에 대한 정보를 포함하는 XML 파일입니다. 다른 사용자와 소스 코드를 공유할 때 누락된 NuGet 패키지를 자동으로 복원하도록 Mac용 Visual Studio 및 Visual Studio를 구성할 수 있습니다. 이 파일의 콘텐츠는 NuGet 패키지 관리자가 제어하며 수동으로 편집하면 안 됩니다.
 - **PhoneTranslator.cs** – 전화 단어를 전화 번호로 변환하는 역할을 담당하는 비즈니스 논리로, **MainPage.xaml.cs**에서 호출됩니다.
 
-Xamarin.iOS 응용 프로그램에 대한 자세한 내용은 [Xamarin.iOS 응용 프로그램 분석](~/ios/get-started/hello-ios/hello-ios-deepdive.md#anatomy)을 참조하세요. Xamarin.Android 응용 프로그램에 대한 자세한 내용은 [Xamarin.Android 응용 프로그램 분석](~/android/get-started/hello-android/hello-android-deepdive.md#anatomy)을 참조하세요.
+Xamarin.iOS 응용 프로그램에 대한 자세한 내용은 [Xamarin.iOS 응용 프로그램 분석](~/ios/get-started/hello-ios/hello-ios-deepdive.md#anatomy-of-a-xamarinios-application)을 참조하세요. Xamarin.Android 응용 프로그램에 대한 자세한 내용은 [Xamarin.Android 응용 프로그램 분석](~/android/get-started/hello-android/hello-android-deepdive.md#anatomy)을 참조하세요.
 
 ## <a name="architecture-and-application-fundamentals"></a>아키텍처 및 응용 프로그램 기본 사항
 
@@ -98,8 +94,6 @@ Xamarin.Forms 응용 프로그램은 기존의 플랫폼 간 응용 프로그램
 Xamarin.Forms 응용 프로그램은 기존의 플랫폼 간 응용 프로그램과 같은 방식으로 설계됩니다. 공유 코드는 일반적으로 .NET 표준 라이브러리에 배치되고 플랫폼 관련 응용 프로그램은 공유 코드를 사용합니다. 다음 다이어그램은 Phoneword 응용 프로그램에 대한 이 관계의 개요를 보여줍니다.
 
 ![](deepdive-images/xs/architecture.png "Phoneword 아키텍처")
-
-PCL에 대한 자세한 내용은 [이식 가능한 클래스 라이브러리 소개](~/cross-platform/app-fundamentals/pcl.md)를 참조하세요.
 
 -----
 
@@ -124,7 +118,7 @@ namespace Phoneword
 }
 ```
 
-이 코드는 `App` 클래스의 `MainPage` 속성을 [`MainPage`](https://developer.xamarin.com/api/property/Xamarin.Forms.Application.MainPage/) 클래스의 새 인스턴스로 설정합니다. 또한 [`XamlCompilation`](https://developer.xamarin.com/api/type/Xamarin.Forms.Xaml.XamlCompilationAttribute/) 특성은 XAML이 중간 언어로 직접 컴파일되도록 컴파일러를 켭니다. 자세한 내용은 [XAML 컴파일](~/xamarin-forms/xaml/xamlc.md)을 참조하세요.
+이 코드는 `App` 클래스의 `MainPage` 속성을 [`MainPage`](xref:Xamarin.Forms.Application.MainPage) 클래스의 새 인스턴스로 설정합니다. 또한 [`XamlCompilation`](xref:Xamarin.Forms.Xaml.XamlCompilationAttribute) 특성은 XAML이 중간 언어로 직접 컴파일되도록 컴파일러를 켭니다. 자세한 내용은 [XAML 컴파일](~/xamarin-forms/xaml/xamlc.md)을 참조하세요.
 
 ## <a name="launching-the-application-on-each-platform"></a>각 플랫폼에서 응용 프로그램 시작
 
@@ -152,23 +146,26 @@ namespace Phoneword.iOS
 
 ### <a name="android"></a>Android
 
-Android에서 초기 Xamarin.Forms 페이지를 시작하기 위해 Phoneword.Droid 프로젝트는 다음 코드 예제와 같이 `FormsApplicationActivity` 클래스에서 상속한 작업을 사용하여 `MainLauncher` 특성을 가진 `Activity`를 만드는 코드를 포함하고 있습니다.
+Android에서 초기 Xamarin.Forms 페이지를 시작하기 위해 Phoneword.Droid 프로젝트는 다음 코드 예제와 같이 `FormsAppCompatActivity` 클래스에서 상속한 작업을 사용하여 `MainLauncher` 특성을 가진 `Activity`를 만드는 코드를 포함하고 있습니다.
 
 ```csharp
 namespace Phoneword.Droid
 {
-    [Activity(Label = "Phoneword",
-              Icon = "@drawable/icon",
+    [Activity(Label = "Phoneword", 
+              Icon = "@mipmap/icon", 
+              Theme = "@style/MainTheme", 
               MainLauncher = true,
               ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         internal static MainActivity Instance { get; private set; }
 
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
+            TabLayoutResource = Resource.Layout.Tabbar;
+            ToolbarResource = Resource.Layout.Toolbar;
 
+            base.OnCreate(bundle);
             Instance = this;
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
@@ -217,14 +214,14 @@ Xamarin.Forms 응용 프로그램은 `LoadApplication` 메서드를 사용해 �
 
 Xamarin.Forms 응용 프로그램의 사용자 인터페이스를 만드는 데 사용되는 4개의 주 제어 그룹이 있습니다.
 
-1. **페이지** – Xamarin.Forms 페이지는 플랫폼 간 모바일 응용 프로그램 화면을 나타냅니다. Phoneword 응용 프로그램은 [`ContentPage`](https://developer.xamarin.com/api/type/Xamarin.Forms.ContentPage/) 클래스를 사용하여 단일 화면을 표시합니다. 페이지에 대한 자세한 내용은 [Xamarin.Forms 페이지](~/xamarin-forms/user-interface/controls/pages.md)를 참조하세요.
-1. **레이아웃** – Xamarin.Forms 레이아웃은 뷰를 논리 구조로 구성하는 데 사용된 컨테이너입니다. Phoneword 응용 프로그램은 [`StackLayout`](https://developer.xamarin.com/api/type/Xamarin.Forms.StackLayout/) 클래스를 사용하여 컨트롤을 가로 스택에 정렬합니다. 레이아웃에 대한 자세한 내용은 [Xamarin.Forms 레이아웃](~/xamarin-forms/user-interface/controls/layouts.md)을 참조하세요.
-1. **뷰** – Xamarin.Forms 뷰는 레이블, 단추 및 텍스트 입력 상자 등의 사용자 인터페이스에 표시되는 컨트롤입니다. Phoneword 응용 프로그램은 [`Label`](https://developer.xamarin.com/api/type/Xamarin.Forms.Label/), [`Entry`](https://developer.xamarin.com/api/type/Xamarin.Forms.Entry/) 및 [`Button`](https://developer.xamarin.com/api/type/Xamarin.Forms.Button/) 컨트롤을 사용합니다. 보기에 대한 자세한 내용은 [Xamarin.Forms 보기](~/xamarin-forms/user-interface/controls/views.md)를 참조하세요.
+1. **페이지** – Xamarin.Forms 페이지는 플랫폼 간 모바일 응용 프로그램 화면을 나타냅니다. Phoneword 응용 프로그램은 [`ContentPage`](xref:Xamarin.Forms.ContentPage) 클래스를 사용하여 단일 화면을 표시합니다. 페이지에 대한 자세한 내용은 [Xamarin.Forms 페이지](~/xamarin-forms/user-interface/controls/pages.md)를 참조하세요.
+1. **레이아웃** – Xamarin.Forms 레이아웃은 뷰를 논리 구조로 구성하는 데 사용된 컨테이너입니다. Phoneword 응용 프로그램은 [`StackLayout`](xref:Xamarin.Forms.StackLayout) 클래스를 사용하여 컨트롤을 가로 스택에 정렬합니다. 레이아웃에 대한 자세한 내용은 [Xamarin.Forms 레이아웃](~/xamarin-forms/user-interface/controls/layouts.md)을 참조하세요.
+1. **뷰** – Xamarin.Forms 뷰는 레이블, 단추 및 텍스트 입력 상자 등의 사용자 인터페이스에 표시되는 컨트롤입니다. Phoneword 응용 프로그램은 [`Label`](xref:Xamarin.Forms.Label), [`Entry`](xref:Xamarin.Forms.Entry) 및 [`Button`](xref:Xamarin.Forms.Button) 컨트롤을 사용합니다. 보기에 대한 자세한 내용은 [Xamarin.Forms 보기](~/xamarin-forms/user-interface/controls/views.md)를 참조하세요.
 1. **셀** – Xamarin.Forms 셀은 목록에 있는 항목에 사용되는 특수한 요소이며, 목록의 각 항목이 어떻게 그려져야 하는지를 설명합니다. Phoneword 응용 프로그램은 어떤 셀도 사용하지 않습니다. 셀에 대한 자세한 내용은 [Xamarin.Forms 셀](~/xamarin-forms/user-interface/controls/cells.md)을 참조하세요.
 
 런타임 시 각 컨트롤은 렌더링될 것이기도 한 해당 네이티브에 매핑됩니다.
 
-아무 플랫폼에서 Phoneword 응용 프로그램이 실행되면 Xamarin.Forms의 [`Page`](https://developer.xamarin.com/api/type/Xamarin.Forms.Page/)에 해당하는 단일 화면이 표시됩니다. `Page`는 Android에서 *ViewGroup*, iOS에서 *보기 컨트롤러* 또는 유니버설 Windows 플랫폼에서 *페이지*를 나타냅니다. 또한 Phoneword 응용 프로그램은 `MainPage` 클래스를 나타내는 [`ContentPage`](https://developer.xamarin.com/api/type/Xamarin.Forms.ContentPage/) 개체를 인스턴스화하며, 다음 코드 예제에 XAML 태그가 나와 있습니다.
+아무 플랫폼에서 Phoneword 응용 프로그램이 실행되면 Xamarin.Forms의 [`Page`](xref:Xamarin.Forms.Page)에 해당하는 단일 화면이 표시됩니다. `Page`는 Android에서 *ViewGroup*, iOS에서 *보기 컨트롤러* 또는 유니버설 Windows 플랫폼에서 *페이지*를 나타냅니다. 또한 Phoneword 응용 프로그램은 `MainPage` 클래스를 나타내는 [`ContentPage`](xref:Xamarin.Forms.ContentPage) 개체를 인스턴스화하며, 다음 코드 예제에 XAML 태그가 나와 있습니다.
 
 ```xaml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -241,13 +238,13 @@ Xamarin.Forms 응용 프로그램의 사용자 인터페이스를 만드는 데 
 </ContentPage>
 ```
 
-`MainPage` 클래스는 화면 크기에 관계없이 [`StackLayout`](https://developer.xamarin.com/api/type/Xamarin.Forms.StackLayout/) 컨트롤을 사용하여 자동으로 화면의 컨트롤을 정렬합니다. 각 자식 요소는 추가된 순서대로 세로 방향으로 차례로 배치됩니다. `StackLayout` 컨트롤은 페이지에 텍스트를 표시하는 [`Label`](https://developer.xamarin.com/api/type/Xamarin.Forms.Label/) 컨트롤, 텍스트 사용자 입력을 수락하는 [`Entry`](https://developer.xamarin.com/api/type/Xamarin.Forms.Entry/) 컨트롤, 터치 이벤트에 응답하여 코드를 실행하는 데 사용되는 [`Button`](https://developer.xamarin.com/api/type/Xamarin.Forms.Button/) 컨트롤 2개를 포함합니다.
+`MainPage` 클래스는 화면 크기에 관계없이 [`StackLayout`](xref:Xamarin.Forms.StackLayout) 컨트롤을 사용하여 자동으로 화면의 컨트롤을 정렬합니다. 각 자식 요소는 추가된 순서대로 세로 방향으로 차례로 배치됩니다. `StackLayout` 컨트롤은 페이지에 텍스트를 표시하는 [`Label`](xref:Xamarin.Forms.Label) 컨트롤, 텍스트 사용자 입력을 수락하는 [`Entry`](xref:Xamarin.Forms.Entry) 컨트롤, 터치 이벤트에 응답하여 코드를 실행하는 데 사용되는 [`Button`](xref:Xamarin.Forms.Button) 컨트롤 2개를 포함합니다.
 
 Xamarin.Forms의 XAML에 대한 자세한 내용은 [Xamarin.Forms XAML 기본 사항](~/xamarin-forms/xaml/xaml-basics/index.md)을 참조하세요.
 
 ### <a name="responding-to-user-interaction"></a>사용자 상호 작용에 응답
 
-XAML에 정의된 개체는 코드 숨김 파일에서 처리되는 이벤트를 발생시킬 수 있습니다. 다음 코드 예제는 *변환* 단추에서 발생하는 [`Clicked`](https://developer.xamarin.com/api/event/Xamarin.Forms.Button.Clicked/) 이벤트에 응답하여 실행되는 `MainPage` 클래스에 대한 코드 숨김의 `OnTranslate` 메서드를 보여줍니다.
+XAML에 정의된 개체는 코드 숨김 파일에서 처리되는 이벤트를 발생시킬 수 있습니다. 다음 코드 예제는 *변환* 단추에서 발생하는 [`Clicked`](xref:Xamarin.Forms.Button.Clicked) 이벤트에 응답하여 실행되는 `MainPage` 클래스에 대한 코드 숨김의 `OnTranslate` 메서드를 보여줍니다.
 
 ```csharp
 void OnTranslate(object sender, EventArgs e)
@@ -275,13 +272,13 @@ void OnTranslate(object sender, EventArgs e)
 
 Xamarin.Forms에 대한 Phoneword 응용 프로그램에는 이 문서에서 다루지 않은 몇 가지 개념이 도입되었습니다. 이러한 개념은 다음과 같습니다.
 
-- 단추 사용 및 사용 안 함. [`IsEnabled`](https://developer.xamarin.com/api/property/Xamarin.Forms.VisualElement.IsEnabled/) 속성을 변경하여 [`Button`](https://developer.xamarin.com/api/type/Xamarin.Forms.Button/)을 켜거나 끌 수 있습니다. 예를 들어 다음 코드 예제에서는 `callButton`을 사용하지 않습니다.
+- 단추 사용 및 사용 안 함. [`IsEnabled`](xref:Xamarin.Forms.VisualElement.IsEnabled) 속성을 변경하여 [`Button`](xref:Xamarin.Forms.Button)을 켜거나 끌 수 있습니다. 예를 들어 다음 코드 예제에서는 `callButton`을 사용하지 않습니다.
 
     ```csharp
     callButton.IsEnabled = false;
     ```
 
-- 경고 대화 상자 표시. 사용자가 통화 **단추**를 누르면 Phoneword 응용 프로그램은 *경고 대화 상자*를 표시하고 전화를 걸거나 취소하는 옵션을 제공합니다. [`DisplayAlert`](https://developer.xamarin.com/api/member/Xamarin.Forms.Page.DisplayAlert/p/System.String/System.String/System.String/System.String/) 메서드는 다음 코드 예제와 같이 대화 상자를 만드는 데 사용됩니다.
+- 경고 대화 상자 표시. 사용자가 통화 **단추**를 누르면 Phoneword 응용 프로그램은 *경고 대화 상자*를 표시하고 전화를 걸거나 취소하는 옵션을 제공합니다. [`DisplayAlert`](xref:Xamarin.Forms.Page.DisplayAlert(System.String,System.String,System.String,System.String)) 메서드는 다음 코드 예제와 같이 대화 상자를 만드는 데 사용됩니다.
 
     ```csharp
     await this.DisplayAlert (
@@ -291,7 +288,7 @@ Xamarin.Forms에 대한 Phoneword 응용 프로그램에는 이 문서에서 다
             "No");
     ```
 
-- [`DependencyService`](https://developer.xamarin.com/api/type/Xamarin.Forms.DependencyService/) 클래스를 통해 네이티브 기능에 액세스. Phoneword 응용 프로그램은 Phoneword 프로젝트의 다음 코드 예제와 같이 `DependencyService` 클래스를 사용하여 `IDialer` 인터페이스를 플랫폼 관련 전화 걸기 구현으로 해결합니다.
+- [`DependencyService`](xref:Xamarin.Forms.DependencyService) 클래스를 통해 네이티브 기능에 액세스. Phoneword 응용 프로그램은 Phoneword 프로젝트의 다음 코드 예제와 같이 `DependencyService` 클래스를 사용하여 `IDialer` 인터페이스를 플랫폼 관련 전화 걸기 구현으로 해결합니다.
 
     ```csharp
     async void OnCall (object sender, EventArgs e)
@@ -302,7 +299,7 @@ Xamarin.Forms에 대한 Phoneword 응용 프로그램에는 이 문서에서 다
     }
     ```
 
-  [`DependencyService`](https://developer.xamarin.com/api/type/Xamarin.Forms.DependencyService/) 클래스에 대한 자세한 내용은 [DependencyService를 통한 네이티브 기능에 액세스](~/xamarin-forms/app-fundamentals/dependency-service/index.md)를 참조하세요.
+  [`DependencyService`](xref:Xamarin.Forms.DependencyService) 클래스에 대한 자세한 내용은 [DependencyService를 통한 네이티브 기능에 액세스](~/xamarin-forms/app-fundamentals/dependency-service/index.md)를 참조하세요.
 
 - URL로 전화 걸기. Phoneword 응용 프로그램은 `OpenURL`을 사용하여 시스템 전화 앱을 시작합니다. iOS 프로젝트의 다음 코드 예제와 같이, URL은 `tel:` 접두사 뒤에 전화를 걸 전화 번호가 붙습니다.
 
@@ -310,7 +307,7 @@ Xamarin.Forms에 대한 Phoneword 응용 프로그램에는 이 문서에서 다
     return UIApplication.SharedApplication.OpenUrl (new NSUrl ("tel:" + number));
     ```
 
-- 플랫폼 레이아웃 조정. 여러 플랫폼에서 여러 [`Padding`](https://developer.xamarin.com/api/property/Xamarin.Forms.Layout.Padding/) 값을 사용하여 각 페이지를 올바르게 표시하는 다음 코드 예제처럼, 개발자는 [`Device`](https://developer.xamarin.com/api/type/Xamarin.Forms.Device/) 클래스를 사용하여 플랫폼별로 응용 프로그램 레이아웃 및 기능을 사용자 지정할 수 있습니다.
+- 플랫폼 레이아웃 조정. 여러 플랫폼에서 여러 [`Padding`](xref:Xamarin.Forms.Layout.Padding) 값을 사용하여 각 페이지를 올바르게 표시하는 다음 코드 예제처럼, 개발자는 [`Device`](xref:Xamarin.Forms.Device) 클래스를 사용하여 플랫폼별로 응용 프로그램 레이아웃 및 기능을 사용자 지정할 수 있습니다.
 
     ```xaml
     <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" ... >
@@ -328,7 +325,7 @@ Xamarin.Forms에 대한 Phoneword 응용 프로그램에는 이 문서에서 다
 
 ## <a name="testing-and-deployment"></a>테스트 및 배포
 
-Mac용 Visual Studio와 Visual Studio는 응용 프로그램을 테스트하고 배포하기 위한 다양한 옵션을 제공합니다. 응용 프로그램 디버그는 응용 프로그램 개발 주기에서 일반적인 과정이며 코드 문제를 진단하는 데 도움이 됩니다. 자세한 내용은 [중단점 설정](https://developer.xamarin.com/recipes/cross-platform/ide/debugging/set_a_breakpoint/), [단계별 코드 실행](https://developer.xamarin.com/recipes/cross-platform/ide/debugging/step_through_code/) 및 [로그 창에 정보 출력](https://developer.xamarin.com/recipes/cross-platform/ide/debugging/output_information_to_log_window/)을 참조하세요.
+Mac용 Visual Studio와 Visual Studio는 응용 프로그램을 테스트하고 배포하기 위한 다양한 옵션을 제공합니다. 응용 프로그램 디버그는 응용 프로그램 개발 주기에서 일반적인 과정이며 코드 문제를 진단하는 데 도움이 됩니다. 자세한 내용은 [중단점 설정](https://github.com/xamarin/recipes/tree/master/Recipes/cross-platform/ide/debugging/set_a_breakpoint), [단계별 코드 실행](https://github.com/xamarin/recipes/tree/master/Recipes/cross-platform/ide/debugging/step_through_code) 및 [로그 창에 정보 출력](https://github.com/xamarin/recipes/tree/master/Recipes/cross-platform/ide/debugging/output_information_to_log_window)을 참조하세요.
 
 시뮬레이터는 응용 프로그램 배포 및 테스트를 시작하기에 좋은 위치이며, 응용 프로그램을 테스트하는 유용한 기능을 제공합니다. 그러나 사용자가 최종 응용 프로그램을 시뮬레이터에서 사용하지는 않으므로 초기에 자주 실제 장치에서 응용 프로그램을 테스트해야 합니다. iOS 장치 프로비전에 대한 자세한 내용은 [장치 프로비전](~/ios/get-started/installation/device-provisioning/index.md)을 참조하세요. Android 장치 프로비전에 대한 자세한 내용은 [개발용 장치 설정](~/android/get-started/installation/set-up-device-for-development.md)을 참조하세요.
 
